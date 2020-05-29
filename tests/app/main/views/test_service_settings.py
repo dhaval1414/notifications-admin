@@ -3724,8 +3724,8 @@ def test_switch_service_enable_letters(
 
 
 @pytest.mark.parametrize('permissions, expected_checked', [
-    (['international_sms'], 'on'),
-    ([''], 'off'),
+    (['international_sms'], 'True'),
+    ([''], 'False'),
 ])
 def test_show_international_sms_as_radio_button(
     client_request,
@@ -3748,8 +3748,8 @@ def test_show_international_sms_as_radio_button(
 
 
 @pytest.mark.parametrize('post_value, international_sms_permission_expected_in_api_call', [
-    ('on', True),
-    ('off', False),
+    ('True', True),
+    ('False', False),
 ])
 def test_switch_service_enable_international_sms(
     client_request,
