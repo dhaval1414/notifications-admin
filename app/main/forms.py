@@ -196,8 +196,22 @@ class govukTextInputField(StringField):
     # 2. calls field.widget
     # this bypasses that by making self.widget a method with the same interface as widget.__call__
     def widget(self, field, **kwargs):
+        #error messages
+        error_message = None
+        if field.errors:
+            error_message = {"text": " ".join(field.errors).strip()}
+
+        #convert to parameters that govuk understands
+        params = {
+            "name": field.name,
+            "id": field.id,
+            "label": {"text": field.label.text},
+            "value": field.data,
+            "errorMessage": error_message,
+        }
+
         return Markup(
-            render_template('vendor/govuk-frontend/components/checkboxes/template.njk', params=params))
+            render_template('vendor/govuk-frontend/components/input/template.njk', params=params))
 
 
 class SMSCode(StringField):
