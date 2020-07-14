@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from itertools import chain
 
 import pytz
-from flask import request
+from flask import Markup, render_template, request
 from flask_login import current_user
 from flask_wtf import FlaskForm as Form
 from flask_wtf.file import FileAllowed
@@ -185,6 +185,19 @@ def password(label='Password'):
                          validators=[DataRequired(message='Cannot be empty'),
                                      Length(8, 255, message='Must be at least 8 characters'),
                                      CommonlyUsedPassword(message='Choose a password that’s harder to guess')])
+
+
+class govukTextInputField(StringField):
+    def __init__(self, label='', validators=None, param_extensions=None, **kwargs):
+        super(govukTextInputField, self).__init__(label, validators, **kwargs)
+
+    # self.__call__ renders the HTML for the field by:
+    # 1. delegating to self.meta.render_field which
+    # 2. calls field.widget
+    # this bypasses that by making self.widget a method with the same interface as widget.__call__
+    def widget(self, field, **kwargs):
+        return Markup(
+            render_template('vendor/govuk-frontend/components/checkboxes/template.njk', params=params))
 
 
 class SMSCode(StringField):
