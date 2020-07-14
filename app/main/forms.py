@@ -616,7 +616,7 @@ class TextNotReceivedForm(StripWhitespaceForm):
 
 
 class RenameServiceForm(StripWhitespaceForm):
-    name = StringField(
+    name = govukTextInputField(
         u'Service name',
         validators=[
             DataRequired(message='Cannot be empty'),
