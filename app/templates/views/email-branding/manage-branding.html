@@ -29,8 +29,8 @@
       {{ file_upload(form.file, button_text='{} logo'.format('Update' if email_branding else 'Upload')) }}
       {% call form_wrapper() %}
         <div class="form-group">
-          <div style='margin-top:15px;'>{{textbox(form.name)}}</div>
-          <div style='margin-top:15px;'>{{textbox(form.text)}}</div>
+          <div style='margin-top:15px;'>{{form.name}}</div>
+          <div style='margin-top:15px;'>{{form.text}}</div>
           {{ textbox(form.colour, width='1-4', colour_preview=True) }}
            {{ radios(form.brand_type) }}
           {{ page_footer(

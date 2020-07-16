@@ -187,21 +187,21 @@ def password(label='Password'):
                                      CommonlyUsedPassword(message='Choose a password that’s harder to guess')])
 
 
-class govukTextInputField(StringField):
+class GovukTextInputField(StringField):
     def __init__(self, label='', validators=None, param_extensions=None, **kwargs):
-        super(govukTextInputField, self).__init__(label, validators, **kwargs)
+        super(GovukTextInputField, self).__init__(label, validators, **kwargs)
 
     # self.__call__ renders the HTML for the field by:
     # 1. delegating to self.meta.render_field which
     # 2. calls field.widget
     # this bypasses that by making self.widget a method with the same interface as widget.__call__
     def widget(self, field, **kwargs):
-        #error messages
+        # error messages
         error_message = None
         if field.errors:
             error_message = {"text": " ".join(field.errors).strip()}
 
-        #convert to parameters that govuk understands
+        # convert to parameters that govuk understands
         params = {
             "name": field.name,
             "id": field.id,
@@ -616,7 +616,7 @@ class TextNotReceivedForm(StripWhitespaceForm):
 
 
 class RenameServiceForm(StripWhitespaceForm):
-    name = govukTextInputField(
+    name = GovukTextInputField(
         u'Service name',
         validators=[
             DataRequired(message='Cannot be empty'),
@@ -1224,8 +1224,8 @@ class PreviewBranding(StripWhitespaceForm):
 
 
 class ServiceUpdateEmailBranding(StripWhitespaceForm):
-    name = StringField('Name of brand')
-    text = StringField('Text')
+    name = GovukTextInputField('Name of brand')
+    text = GovukTextInputField('Text')
     colour = StringField(
         'Colour',
         validators=[
